@@ -27,7 +27,7 @@ while(count($queue) > 0) {
 	 	if(isset($cont["options"]["ssl"]["peer_certificate"])) {
 			$parsed = openssl_x509_parse($cont["options"]["ssl"]["peer_certificate"]);
 			if(isset($parsed['extensions'],$parsed['extensions']['subjectAltName'])) {
-				preg_match_all('/DNS:([a-z\.0-9_\-\*]+)/',$parsed['extensions']['subjectAltName'],$m);
+				preg_match_all('/DNS:([a-z\.0-9_\-\*]+)/i',$parsed['extensions']['subjectAltName'],$m);
 				if(isset($m[1])) {
 					$queue = array_merge($m[1],$queue);
 					$queue = array_unique($queue);
