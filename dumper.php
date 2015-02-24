@@ -20,7 +20,19 @@ while(count($queue) > 0) {
 	}
 
 	print($domain.PHP_EOL);
-	$g = stream_context_create (array("ssl" => array("capture_peer_cert" => true), "http" => array('timeout' => 2)));
+	$g = stream_context_create (
+		array(
+			"ssl" => array(
+				"capture_peer_cert" => true, 
+				"verify_peer" => false, 
+				"verify_peer_name" => false
+				), 
+			"http" => array(
+				"timeout" => 2, 
+				"ignore_errors" => true
+				)
+			)
+		);
 	$r = @fopen("https://".$domain."/", "rb", false, $g);
 	if($r !== FALSE) {
 	 	$cont = stream_context_get_params($r);
